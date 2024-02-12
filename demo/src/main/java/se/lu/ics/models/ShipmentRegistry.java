@@ -13,5 +13,23 @@ public class ShipmentRegistry {
     public ObservableList<Shipment> getShipmentRegistry(){
         return FXCollections.unmodifiableObservableList(this.shipmentRegistry);
     }
-    
+
+    public void addShipment(Shipment shipment){
+        this.shipmentRegistry.add(shipment);
+    }
+
+    public void removeShipment(Shipment shipment){
+        this.shipmentRegistry.remove(shipment);
+    }
+
+    public Shipment getShipment(int shipmentId){
+        for(Shipment shipment : this.shipmentRegistry){
+            if(shipment.getShipmentId() == shipmentId){
+                return shipment;
+            }
+        }
+        return null;
+    }
+
+
 }

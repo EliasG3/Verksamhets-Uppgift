@@ -1,28 +1,24 @@
 package se.lu.ics.models;
 
 import se.lu.ics.models.Warehouse;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import se.lu.ics.models.Inspection;
 
 public class Shipment {
-
-    private Warehouse responsiblWarehouse;
     private Inspection inspection;
     private String type;
     private int shipmentId; 
     private int daysStored;
+    private ObservableList<ShipmentLog> shipmentLog;
 
-    public Shipment(Warehouse responsiblWarehouse, Inspection inspection, String type, int shipmentId, int daysStored) {
-        this.responsiblWarehouse = responsiblWarehouse;
+    public Shipment( Inspection inspection, String type, int shipmentId, int daysStored) {
         this.inspection = inspection;
         this.type = type;
         this.shipmentId = shipmentId;
         this.daysStored = daysStored;
     }
-
-    public Warehouse getResponsiblWarehouse() {
-        return responsiblWarehouse;
-    }
-
+  
     public Inspection getInspection() {
         return inspection;
     }
@@ -39,13 +35,14 @@ public class Shipment {
         return daysStored;
     }
 
+    public ObservableList<ShipmentLog> getShipmentLog() {
+        return shipmentLog;
+    }
+
     public void setDaysStored(int daysStored){
         this.daysStored = daysStored;
     }
 
-    public void setResponsiblWarehouse(Warehouse responsiblWarehouse) {
-        this.responsiblWarehouse = responsiblWarehouse;
-    }
 
     public void setInspection(Inspection inspection) {
         this.inspection = inspection;
@@ -58,5 +55,8 @@ public class Shipment {
     public void setShipmentId(int shipmentId) {
         this.shipmentId = shipmentId;
     }
-    
+
+    public void addShipmentLog(ShipmentLog shipmentLog){
+        this.shipmentLog.add(shipmentLog);
+    }
 }

@@ -7,12 +7,14 @@ public class Inspection {
     private String date;
     private String responsible;
     private String result;
+    private int inspectionId;
 
-    public Inspection(Warehouse warehouse,String date,String responsible,String result){
+    public Inspection(Warehouse warehouse,String date,String responsible,String result, int inspectionId){
         this.warehouse = warehouse;
         this.date = date;
         this.responsible = responsible; 
         this.result = result;
+        this.inspectionId = inspectionId;
     }
 
     public Warehouse getWarehouse(){
@@ -31,6 +33,11 @@ public class Inspection {
         return result;
     }
 
+    public int getInspectionId(){
+        return inspectionId;
+    }
+
+
     public void setWarehouse(Warehouse warehouse){
         this.warehouse = warehouse; 
     }
@@ -45,6 +52,10 @@ public class Inspection {
 
     public void setResult(String result){
         this.result = result; 
+    }
+
+    public void setInspectionId(int inspectionId){
+        this.inspectionId = inspectionId;
     }
     
 }

@@ -15,5 +15,21 @@ public class WarehouseRegistry {
         return FXCollections.unmodifiableObservableList(this.warehouseRegistry);
     }
 
-    
+    public void addWarehouse(Warehouse warehouse){
+        this.warehouseRegistry.add(warehouse);
+    }
+
+    public void removeWarehouse(Warehouse warehouse){
+        this.warehouseRegistry.remove(warehouse);
+    }
+
+    public Warehouse getWarehouse(String warehouseName){
+        for(Warehouse warehouse : this.warehouseRegistry){
+            if(warehouse.getName().equals(warehouseName)){
+                return warehouse;
+            }
+        }
+        return null;
+    }
+
 }
