@@ -1,7 +1,5 @@
 module demo {
     exports se.lu.ics.models;
-    exports se.lu.ics;
-
     requires javafx.base;
     exports se.lu.ics.controllers;
 

@@ -1,0 +1,45 @@
+#anchorpanLeft{
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 0 0 0 0;
+}
+
+#anchorpaneCenter{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 1 0 1;
+    -fx-padding: 0 0 0 0;
+}
+
+#anchorpaneLarge{
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 0 0 1;
+    -fx-padding: 0 0 0 0;
+}
+
+#anchorpaneWarehouses {
+    
+}
+
+.button {
+    -fx-background-color: transparent;
+   
+}
+
+.button:hover {
+    -fx-background-color: #ffffff;
+}
+
+.button:focused {
+    -fx-background-color: #ffffff;
+}
+
+
+#hBoxTopLabel {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0 0 0 0;
+}
