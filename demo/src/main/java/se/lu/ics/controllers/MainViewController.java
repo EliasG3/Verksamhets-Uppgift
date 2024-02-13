@@ -1,5 +1,6 @@
 package se.lu.ics.controllers;
 
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,12 +10,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import se.lu.ics.models.InspectionRegistry;
+import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.Warehouse;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import se.lu.ics.models.WarehouseRegistry;
 
 public class MainViewController {
+
+    private WarehouseRegistry warehouseRegistry;
+    private InspectionRegistry inspectionRegistry;
+    private ShipmentRegistry shipmentRegistry;
 
     @FXML
     private AnchorPane anchorpanLeft;
@@ -77,7 +87,8 @@ public class MainViewController {
 
         tableColumnWarehousesAddress.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnWarehousesCapacity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        tableColumnWarehousesCurrentStock.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableColumnWarehousesCurrentStock
+                .setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         tableColumnWarehousesLastInsDate.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnWarehousesName.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -110,7 +121,7 @@ public class MainViewController {
 
     @FXML
     void handleButtonAddWarehouseAction(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -128,4 +139,24 @@ public class MainViewController {
 
     }
 
+    public void populateTableView() {
+        ObservableList<Warehouse> warehouses = FXCollections.observableArrayList();
+        if (warehouseRegistry != null) {
+            warehouses.addAll(warehouseRegistry.getWarehouseRegistry());
+            tableViewWarehouses.setItems(warehouses);
+        }
+    }
+
+    public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
+        this.shipmentRegistry = shipmentRegistry;
+    }
+
+    public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
+        this.warehouseRegistry = warehouseRegistry;
+        populateTableView();
+    }
+
+    public void setInspectionRegistry(InspectionRegistry inspectionRegistry) {
+        this.inspectionRegistry = inspectionRegistry;
+    }
 }
