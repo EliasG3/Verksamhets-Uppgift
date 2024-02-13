@@ -19,6 +19,8 @@ import javafx.util.converter.IntegerStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import se.lu.ics.models.WarehouseRegistry;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class MainViewController {
 
@@ -27,100 +29,95 @@ public class MainViewController {
     private ShipmentRegistry shipmentRegistry;
 
     @FXML
-    private AnchorPane anchorpanLeft;
-
-    @FXML
     private AnchorPane anchorpaneCenter;
 
     @FXML
-    private AnchorPane anchorpaneLarge;
+    private AnchorPane anchorpaneLeftButtons;
 
     @FXML
     private AnchorPane anchorpaneWarehouses;
 
     @FXML
-    private Button buttonAddWarehouse;
+    private Button buttonAdd;
 
     @FXML
     private Button buttonDelete;
 
     @FXML
-    private Button buttonShipments;
+    private Button buttonShupments;
 
     @FXML
     private Button buttonWarehouses;
 
     @FXML
-    private HBox hBoxTopLabel;
+    private TableColumn<Warehouse, String> tableColumnWarehouseAddress;
 
     @FXML
-    private TableColumn<Warehouse, String> tableColumnWarehousesAddress;
+    private TableColumn<Warehouse, Integer> tableColumnWarehouseCapacity;
 
     @FXML
-    private TableColumn<Warehouse, Integer> tableColumnWarehousesCapacity;
+    private TableColumn<Warehouse, Integer> tableColumnWarehouseCurrentStock;
 
     @FXML
-    private TableColumn<Warehouse, Integer> tableColumnWarehousesCurrentStock;
+    private TableColumn<Warehouse, String> tableColumnWarehouseLastInsDate;
 
     @FXML
-    private TableColumn<Warehouse, String> tableColumnWarehousesLastInsDate;
-
-    @FXML
-    private TableColumn<Warehouse, String> tableColumnWarehousesName;
+    private TableColumn<Warehouse, String> tableColumnWarehouseName;
 
     @FXML
     private TableView<Warehouse> tableViewWarehouses;
 
     @FXML
-    private TextField textFieldSearchWarehouse;
+    private TextField textfieldSearchWarehouses;
 
     @FXML
     private VBox vBoxLeftButtons;
 
-    public void initialize() {
+   
 
-        tableColumnWarehousesAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        tableColumnWarehousesCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-        tableColumnWarehousesCurrentStock.setCellValueFactory(new PropertyValueFactory<>("currentStock"));
-        tableColumnWarehousesLastInsDate.setCellValueFactory(new PropertyValueFactory<>("lastInspectionDate"));
-        tableColumnWarehousesName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        tableColumnWarehousesAddress.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableColumnWarehousesCapacity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        tableColumnWarehousesCurrentStock
-                .setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        tableColumnWarehousesLastInsDate.setCellFactory(TextFieldTableCell.forTableColumn());
-        tableColumnWarehousesName.setCellFactory(TextFieldTableCell.forTableColumn());
+    public void initialize(){
+        tableColumnWarehouseAddress.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("address"));
+        tableColumnWarehouseCapacity.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("capacity"));
+        tableColumnWarehouseCurrentStock.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("currentStock"));
+        tableColumnWarehouseLastInsDate.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("lastInspectionDate"));
+        tableColumnWarehouseName.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("name"));
 
-        tableColumnWarehousesAddress.setOnEditCommit(event -> {
+        tableColumnWarehouseAddress.setCellFactory(TextFieldTableCell.forTableColumn());
+        tableColumnWarehouseCapacity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableColumnWarehouseCurrentStock.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableColumnWarehouseLastInsDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        tableColumnWarehouseName.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        tableColumnWarehouseAddress.setOnEditCommit(event -> {
             Warehouse warehouse = event.getRowValue();
             warehouse.setAddress(event.getNewValue());
         });
 
-        tableColumnWarehousesCapacity.setOnEditCommit(event -> {
+        tableColumnWarehouseCapacity.setOnEditCommit(event -> {
             Warehouse warehouse = event.getRowValue();
             warehouse.setCapacity(event.getNewValue());
         });
 
-        tableColumnWarehousesCurrentStock.setOnEditCommit(event -> {
+        tableColumnWarehouseCurrentStock.setOnEditCommit(event -> {
             Warehouse warehouse = event.getRowValue();
             warehouse.setCurrentStock(event.getNewValue());
         });
 
-        tableColumnWarehousesLastInsDate.setOnEditCommit(event -> {
+        tableColumnWarehouseLastInsDate.setOnEditCommit(event -> {
             Warehouse warehouse = event.getRowValue();
             warehouse.setLastInspectionDate(event.getNewValue());
         });
 
-        tableColumnWarehousesName.setOnEditCommit(event -> {
+        tableColumnWarehouseName.setOnEditCommit(event -> {
             Warehouse warehouse = event.getRowValue();
             warehouse.setName(event.getNewValue());
         });
 
-    }
 
+    }
     @FXML
-    void handleButtonAddWarehouseAction(ActionEvent event) {
+    void handleButtonAddAction(ActionEvent event) {
 
     }
 
@@ -139,24 +136,24 @@ public class MainViewController {
 
     }
 
-    public void populateTableView() {
-        ObservableList<Warehouse> warehouses = FXCollections.observableArrayList();
-        if (warehouseRegistry != null) {
-            warehouses.addAll(warehouseRegistry.getWarehouseRegistry());
-            tableViewWarehouses.setItems(warehouses);
-        }
+    public void populateTableView(){
+        ObservableList<Warehouse> warehouses = FXCollections.observableArrayList(warehouseRegistry.getWarehouseRegistry());
+        tableViewWarehouses.setItems(warehouses);
     }
 
-    public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
-        this.shipmentRegistry = shipmentRegistry;
-    }
-
-    public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
+    public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry){
         this.warehouseRegistry = warehouseRegistry;
         populateTableView();
     }
 
-    public void setInspectionRegistry(InspectionRegistry inspectionRegistry) {
+    public void setInspectionRegistry(InspectionRegistry inspectionRegistry){
         this.inspectionRegistry = inspectionRegistry;
     }
+
+    public void setShipmentRegistry(ShipmentRegistry shipmentRegistry){
+        this.shipmentRegistry = shipmentRegistry;
+    }
+
+    
+
 }

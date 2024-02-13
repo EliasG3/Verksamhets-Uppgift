@@ -26,7 +26,7 @@ public class App extends Application {
 
         addTestData();
 
-        URL fxml = getClass().getResource("/fxml/MainView.fxml");
+        URL fxml = getClass().getResource("/fxml/MainView2.fxml");
         FXMLLoader loader = new FXMLLoader(fxml);
         Scene scene = new Scene(loader.load());
 
@@ -42,6 +42,7 @@ public class App extends Application {
     }
 
     public void addTestData() {
+
         Warehouse warehouse1 = new Warehouse("Warehouse 1", "Address 1", 100, 50, "2020-01-01");
         Warehouse warehouse2 = new Warehouse("Warehouse 2", "Address 2", 200, 100, "2020-01-01");
         Warehouse warehouse3 = new Warehouse("Warehouse 3", "Address 3", 300, 150, "2020-01-01");
