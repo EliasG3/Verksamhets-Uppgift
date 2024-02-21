@@ -3,6 +3,7 @@ package se.lu.ics.controllers;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,6 +22,11 @@ import javafx.collections.ObservableList;
 import se.lu.ics.models.WarehouseRegistry;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
 
 public class MainViewController {
 
@@ -77,6 +83,7 @@ public class MainViewController {
 
 
     public void initialize(){
+        
         tableColumnWarehouseAddress.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("address"));
         tableColumnWarehouseCapacity.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("capacity"));
         tableColumnWarehouseCurrentStock.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("currentStock"));
@@ -116,15 +123,43 @@ public class MainViewController {
 
 
     }
+
     @FXML
     void handleButtonAddAction(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddWarehouseView.fxml"));
+            Stage modalstage = new Stage();
+            modalstage.setScene(new Scene(loader.load()));
+
+            modalstage.getScene().getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+            AddWarehouseViewController controller = loader.getController();
+            controller.setWarehouseRegistry(warehouseRegistry);
+            controller.setInspectionRegistry(inspectionRegistry);
+            controller.setShipmentRegistry(shipmentRegistry);
+            
+            modalstage.initModality(Modality.APPLICATION_MODAL);
+            modalstage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       
+        populateTableView();
 
     }
 
     @FXML
     void handleButtonDeleteAction(ActionEvent event) {
 
+        Warehouse warehouse = tableViewWarehouses.getSelectionModel().getSelectedItem();
+        if(warehouse != null){
+            warehouseRegistry.removeWarehouse(warehouse);
+            tableViewWarehouses.getItems().remove(warehouse);
+            populateTableView();
+        }
     }
+
 
     @FXML
     void handleButtonShipmentsAction(ActionEvent event) {
@@ -153,7 +188,5 @@ public class MainViewController {
     public void setShipmentRegistry(ShipmentRegistry shipmentRegistry){
         this.shipmentRegistry = shipmentRegistry;
     }
-
-    
 
 }

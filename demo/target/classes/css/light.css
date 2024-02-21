@@ -4,11 +4,7 @@
    
 }
 
-#anchorpaneCenter{
-    -fx-background-color: #ffffff;
 
-    
-}
 
 #anchorpaneLeftButtons {
     -fx-background-color: #f0f0f0;
@@ -27,7 +23,8 @@
 .button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
    
 }
 
@@ -39,10 +36,16 @@
     -fx-background-color: #ffffff;
 }
 
-
-#hBoxTopLabel {
-    -fx-background-color: #f0f0f0;
-    -fx-border-color: #d0d0d0;
-    -fx-border-width: 0 0 1 0;
-    -fx-padding: 0 0 0 0;
+.text-field {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
+
+.text-field:hover {
+    -fx-background-color: #d0d0d0;
+}
+
+.text-field:focused {
+    -fx-background-color: #d0d0d0;
+}
+
