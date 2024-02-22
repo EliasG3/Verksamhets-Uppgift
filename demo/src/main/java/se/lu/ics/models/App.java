@@ -38,6 +38,7 @@ public class App extends Application {
         scene.getStylesheets().add(App.class.getResource("/css/light.css").toExternalForm());
 
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Viking Express Inventory Management System");
         primaryStage.show();
     }
 

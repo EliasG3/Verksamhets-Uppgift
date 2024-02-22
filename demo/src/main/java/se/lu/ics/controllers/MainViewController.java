@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -16,6 +17,7 @@ import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.Warehouse;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +27,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 
@@ -35,6 +38,9 @@ public class MainViewController {
     private ShipmentRegistry shipmentRegistry;
 
     @FXML
+    private ScrollPane scrollPaneCenter;
+
+    @FXML
     private AnchorPane anchorpaneCenter;
 
     @FXML
@@ -42,6 +48,9 @@ public class MainViewController {
 
     @FXML
     private AnchorPane anchorpaneWarehouses;
+
+    @FXML
+    private Button buttonOverview;
 
     @FXML
     private Button buttonAdd;
@@ -79,20 +88,20 @@ public class MainViewController {
     @FXML
     private VBox vBoxLeftButtons;
 
-   
+    public void initialize() {
 
-
-    public void initialize(){
-        
         tableColumnWarehouseAddress.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("address"));
         tableColumnWarehouseCapacity.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("capacity"));
-        tableColumnWarehouseCurrentStock.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("currentStock"));
-        tableColumnWarehouseLastInsDate.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("lastInspectionDate"));
+        tableColumnWarehouseCurrentStock
+                .setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("currentStock"));
+        tableColumnWarehouseLastInsDate
+                .setCellValueFactory(new PropertyValueFactory<Warehouse, String>("lastInspectionDate"));
         tableColumnWarehouseName.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("name"));
 
         tableColumnWarehouseAddress.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnWarehouseCapacity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        tableColumnWarehouseCurrentStock.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableColumnWarehouseCurrentStock
+                .setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         tableColumnWarehouseLastInsDate.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnWarehouseName.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -121,7 +130,6 @@ public class MainViewController {
             warehouse.setName(event.getNewValue());
         });
 
-
     }
 
     @FXML
@@ -137,14 +145,14 @@ public class MainViewController {
             controller.setWarehouseRegistry(warehouseRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setShipmentRegistry(shipmentRegistry);
-            
+
             modalstage.initModality(Modality.APPLICATION_MODAL);
             modalstage.showAndWait();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
         populateTableView();
 
     }
@@ -153,39 +161,102 @@ public class MainViewController {
     void handleButtonDeleteAction(ActionEvent event) {
 
         Warehouse warehouse = tableViewWarehouses.getSelectionModel().getSelectedItem();
-        if(warehouse != null){
+        if (warehouse != null) {
             warehouseRegistry.removeWarehouse(warehouse);
             tableViewWarehouses.getItems().remove(warehouse);
             populateTableView();
         }
     }
 
+    @FXML
+    void handleSearchAction(KeyEvent event) {
+        ObservableList<Warehouse> warehouses = warehouseRegistry.getWarehouseRegistry();
+
+        textfieldSearchWarehouses.textProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Warehouse> filteredWarehouses = FXCollections.observableArrayList();
+
+            if(newValue.isEmpty()){
+                populateTableView();
+                return;
+            }
+
+            for (Warehouse warehouse : warehouses) {
+                if (warehouse.getName().toLowerCase().contains(newValue.toLowerCase())) {
+                    filteredWarehouses.add(warehouse);
+                }
+            }
+            tableViewWarehouses.getItems().clear();
+            tableViewWarehouses.setItems(filteredWarehouses);
+        });
+    }
+
+
+
+
+    // ---------------------------------------------------------------------------------------
+
+    @FXML
+    void handleButtonOverviewAction(ActionEvent event) {
+
+    }
 
     @FXML
     void handleButtonShipmentsAction(ActionEvent event) {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShipmentsView.fxml"));
+        Parent root = loader.load();
+        ShipmentViewController controller = loader.getController();
+
+        root.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+        controller.setShipmentRegistry(shipmentRegistry);
+        controller.setInspectionRegistry(inspectionRegistry);
+        controller.setWarehouseRegistry(warehouseRegistry);
+
+        scrollPaneCenter.setContent(root);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
     void handleButtonWarehousesAction(ActionEvent event) {
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView2.fxml"));
+            Parent root = loader.load();
+            MainViewController controller = loader.getController();
+
+            root.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+            controller.setWarehouseRegistry(warehouseRegistry);
+            controller.setInspectionRegistry(inspectionRegistry);
+            controller.setShipmentRegistry(shipmentRegistry);
+
+            scrollPaneCenter.setContent(anchorpaneWarehouses);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void populateTableView(){
-        ObservableList<Warehouse> warehouses = FXCollections.observableArrayList(warehouseRegistry.getWarehouseRegistry());
+    public void populateTableView() {
+        ObservableList<Warehouse> warehouses = FXCollections
+                .observableArrayList(warehouseRegistry.getWarehouseRegistry());
         tableViewWarehouses.setItems(warehouses);
     }
 
-    public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry){
+    public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
         this.warehouseRegistry = warehouseRegistry;
         populateTableView();
     }
 
-    public void setInspectionRegistry(InspectionRegistry inspectionRegistry){
+    public void setInspectionRegistry(InspectionRegistry inspectionRegistry) {
         this.inspectionRegistry = inspectionRegistry;
     }
 
-    public void setShipmentRegistry(ShipmentRegistry shipmentRegistry){
+    public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
         this.shipmentRegistry = shipmentRegistry;
     }
 

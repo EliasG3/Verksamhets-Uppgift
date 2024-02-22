@@ -3,7 +3,7 @@ package se.lu.ics.models;
 import se.lu.ics.models.Warehouse;
 
 public class Inspection {
-    private Warehouse warehouse;
+    private Warehouse warehouse; // warehouse is the current warehouse the shipment is stored at the time of inspection
     private String date;
     private String responsible;
     private String result;
@@ -57,5 +57,7 @@ public class Inspection {
     public void setInspectionId(int inspectionId){
         this.inspectionId = inspectionId;
     }
+
+    
     
 }

@@ -52,7 +52,7 @@ public class AddWarehouseViewController {
     }
 
     @FXML
-    void handleButtonReturnAction(ActionEvent event) {
+    void handleButtonCloseAction(ActionEvent event) {
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         currentStage.close();
     }

@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="se.lu.ics.controllers.AddWarehouseViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lu.ics.controllers.AddWarehouseViewController">
    <children>
-      <VBox layoutX="14.0" layoutY="33.0" spacing="19.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0">
+      <VBox layoutX="14.0" layoutY="33.0" spacing="19.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
             <Label text="Name:" />
             <Label text="Capacity:" />
@@ -18,7 +17,7 @@
             <Label text="Current stock:" />
          </children>
       </VBox>
-      <VBox layoutX="250.0" layoutY="44.0" prefWidth="150.0" spacing="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="40.0">
+      <VBox layoutX="250.0" layoutY="44.0" prefWidth="150.0" spacing="10.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <children>
             <TextField fx:id="textfieldWarehouseName" />
             <TextField fx:id="textfieldWarehouseCapacity" />
@@ -30,16 +29,12 @@
          <children>
             <HBox spacing="10.0">
                <children>
-                  <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#handleButtonReturnAction" text="Return" />
+                  <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#handleButtonCloseAction" text="Close" />
                   <Button fx:id="buttonAddWarehouse" mnemonicParsing="false" onAction="#handleButtonAddWarehouseAction" text="Confirm" />
                </children>
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="147.0" layoutY="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
-         <children>
-            <Label text="Add Warehouse" />
-         </children>
-      </HBox>
+      <HBox alignment="CENTER" layoutX="147.0" layoutY="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
    </children>
 </AnchorPane>
