@@ -18,6 +18,7 @@
       <TextField fx:id="textfieldSearchShipments" layoutX="16.0" layoutY="45.0" onKeyTyped="#handleSearchAction" prefWidth="250.0" promptText="Search shipment ID" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="40.0" />
       <TableView fx:id="tableViewShipments" editable="true" layoutX="110.0" layoutY="100.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
         <columns>
+            <TableColumn fx:id="tableColumnShipmentWarehouse" prefWidth="75.0" text="Current Warehouse" />
           <TableColumn fx:id="tableColumnShipmentType" prefWidth="75.0" text="Type" />
           <TableColumn fx:id="tableColumnShipmentID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="tableColumnShipmentDSACL" prefWidth="107.0" text="DSACL" />

@@ -93,6 +93,7 @@ public class MainViewController {
 
     @FXML
     private TableColumn<Warehouse, String> tableColumnWarehouseLastInsDate;
+    
 
     @FXML
     private TableColumn<Warehouse, String> tableColumnWarehouseName;

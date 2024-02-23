@@ -19,6 +19,7 @@ import se.lu.ics.models.WarehouseRegistry;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.beans.property.SimpleStringProperty;
 
 public class ShipmentViewController {
 
@@ -42,6 +43,9 @@ public class ShipmentViewController {
     private TableColumn<Shipment, String> tableColumnShipmentType;
 
     @FXML
+    private TableColumn<Shipment, String> tableColumnShipmentWarehouse;
+
+    @FXML
     private TableView<Shipment> tableViewShipments;
 
     @FXML
@@ -56,6 +60,8 @@ public class ShipmentViewController {
         tableColumnShipmentID.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         tableColumnShipmentType.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnShipmentDSACL.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        tableColumnShipmentWarehouse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWarehouse().getName()));
 
         tableColumnShipmentID.setOnEditCommit(event -> {
             Shipment shipment = event.getRowValue();
