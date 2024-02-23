@@ -61,7 +61,7 @@ public class ShipmentViewController {
         tableColumnShipmentType.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnShipmentDSACL.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
-        tableColumnShipmentWarehouse.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWarehouse().getName()));
+       
 
         tableColumnShipmentID.setOnEditCommit(event -> {
             Shipment shipment = event.getRowValue();
