@@ -1,11 +1,18 @@
 package se.lu.ics.controllers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -30,12 +37,17 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
+import javafx.util.Duration;
+import javafx.event.EventHandler;
 
 public class MainViewController {
 
     private WarehouseRegistry warehouseRegistry;
     private InspectionRegistry inspectionRegistry;
     private ShipmentRegistry shipmentRegistry;
+
+    @FXML
+    private AnchorPane anchorpaneLeftSide;
 
     @FXML
     private ScrollPane scrollPaneCenter;
@@ -48,6 +60,9 @@ public class MainViewController {
 
     @FXML
     private AnchorPane anchorpaneWarehouses;
+
+    @FXML
+    private Button buttonClose;
 
     @FXML
     private Button buttonOverview;
@@ -63,6 +78,9 @@ public class MainViewController {
 
     @FXML
     private Button buttonWarehouses;
+
+    @FXML
+    private Label labelClock;
 
     @FXML
     private TableColumn<Warehouse, String> tableColumnWarehouseAddress;
@@ -88,7 +106,25 @@ public class MainViewController {
     @FXML
     private VBox vBoxLeftButtons;
 
+    @FXML
+    private SplitPane splitpane;
+
+    @FXML
+    private VBox largeVBox;
+
     public void initialize() {
+
+        populateCurrentDateAndTime();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                populateCurrentDateAndTime();
+            }
+        }));
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         tableColumnWarehouseAddress.setCellValueFactory(new PropertyValueFactory<Warehouse, String>("address"));
         tableColumnWarehouseCapacity.setCellValueFactory(new PropertyValueFactory<Warehouse, Integer>("capacity"));
@@ -132,6 +168,16 @@ public class MainViewController {
 
     }
 
+    public void populateCurrentDateAndTime() {
+        LocalDateTime time = LocalDateTime.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = time.format(formatter);
+
+        labelClock.setText(formattedDateTime);
+    }
+
+
     @FXML
     void handleButtonAddAction(ActionEvent event) {
 
@@ -152,9 +198,7 @@ public class MainViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         populateTableView();
-
     }
 
     @FXML
@@ -175,7 +219,7 @@ public class MainViewController {
         textfieldSearchWarehouses.textProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Warehouse> filteredWarehouses = FXCollections.observableArrayList();
 
-            if(newValue.isEmpty()){
+            if (newValue.isEmpty()) {
                 populateTableView();
                 return;
             }
@@ -190,8 +234,10 @@ public class MainViewController {
         });
     }
 
-
-
+    @FXML
+    void handleButtonCloseAction(ActionEvent event) {
+        System.exit(0);
+    }
 
     // ---------------------------------------------------------------------------------------
 
@@ -203,16 +249,16 @@ public class MainViewController {
     @FXML
     void handleButtonShipmentsAction(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShipmentsView.fxml"));
-        Parent root = loader.load();
-        ShipmentViewController controller = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ShipmentsView.fxml"));
+            Parent root = loader.load();
+            ShipmentViewController controller = loader.getController();
 
-        root.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
-        controller.setShipmentRegistry(shipmentRegistry);
-        controller.setInspectionRegistry(inspectionRegistry);
-        controller.setWarehouseRegistry(warehouseRegistry);
+            root.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+            controller.setShipmentRegistry(shipmentRegistry);
+            controller.setInspectionRegistry(inspectionRegistry);
+            controller.setWarehouseRegistry(warehouseRegistry);
 
-        scrollPaneCenter.setContent(root);
+            scrollPaneCenter.setContent(root);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,7 +268,7 @@ public class MainViewController {
 
     @FXML
     void handleButtonWarehousesAction(ActionEvent event) {
-        
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainView2.fxml"));
             Parent root = loader.load();

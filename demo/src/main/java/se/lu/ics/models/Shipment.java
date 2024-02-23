@@ -59,4 +59,6 @@ public class Shipment {
     public void addShipmentLog(ShipmentLog shipmentLog){
         this.shipmentLog.add(shipmentLog);
     }
+
+
 }

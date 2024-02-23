@@ -49,6 +49,11 @@ public class AddWarehouseViewController {
 
         Warehouse warehouse = new Warehouse(name, address, capacity, currentStock, null);
         warehouseRegistry.addWarehouse(warehouse);
+
+        textfieldWarehouseAddress.clear();
+        textfieldWarehouseCapacity.clear();
+        textfieldWarehouseCurrentStock.clear();
+        textfieldWarehouseName.clear();
     }
 
     @FXML

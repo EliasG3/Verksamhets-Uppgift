@@ -1,5 +1,9 @@
 package se.lu.ics.controllers;
 
+
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,10 +11,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import se.lu.ics.models.Inspection;
 import se.lu.ics.models.InspectionRegistry;
 import se.lu.ics.models.Shipment;
 import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.WarehouseRegistry;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 
 public class ShipmentViewController {
 
@@ -31,9 +39,6 @@ public class ShipmentViewController {
     private TableColumn<Shipment, Integer> tableColumnShipmentID;
 
     @FXML
-    private TableColumn<Shipment, String> tableColumnShipmentLastInspection;
-
-    @FXML
     private TableColumn<Shipment, String> tableColumnShipmentType;
 
     @FXML
@@ -41,7 +46,38 @@ public class ShipmentViewController {
 
     @FXML
     private TextField textfieldSearchShipments;
-    
+
+    public void initialize() {
+
+        tableColumnShipmentID.setCellValueFactory(new PropertyValueFactory<>("shipmentId"));
+        tableColumnShipmentType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        tableColumnShipmentDSACL.setCellValueFactory(new PropertyValueFactory<>("daysStored"));
+
+        tableColumnShipmentID.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tableColumnShipmentType.setCellFactory(TextFieldTableCell.forTableColumn());
+        tableColumnShipmentDSACL.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        tableColumnShipmentID.setOnEditCommit(event -> {
+            Shipment shipment = event.getRowValue();
+            shipment.setShipmentId(event.getNewValue());
+        });
+
+        tableColumnShipmentType.setOnEditCommit(event -> {
+            Shipment shipment = event.getRowValue();
+            shipment.setType(event.getNewValue());
+        });
+
+        tableColumnShipmentDSACL.setOnEditCommit(event -> {
+            Shipment shipment = event.getRowValue();
+            shipment.setDaysStored(event.getNewValue());
+        });
+
+    }
+
+    public void populateTableView() {
+        ObservableList<Shipment> shipments = FXCollections.observableArrayList(shipmentRegistry.getShipmentRegistry());
+        tableViewShipments.setItems(shipments);
+    }
 
     @FXML
     void handleButtonAddShipmentAction(ActionEvent event) {
@@ -50,12 +86,33 @@ public class ShipmentViewController {
 
     @FXML
     void handleButtonDeleteShipmentAction(ActionEvent event) {
-
+        Shipment shipment = tableViewShipments.getSelectionModel().getSelectedItem();
+        if (shipment != null) {
+            shipmentRegistry.removeShipment(shipment);
+            tableViewShipments.getItems().remove(shipment);
+            populateTableView();
+        }
     }
 
     @FXML
     void handleSearchAction(KeyEvent event) {
+        ObservableList<Shipment> shipments = shipmentRegistry.getShipmentRegistry();
 
+        textfieldSearchShipments.textProperty().addListener((observable, oldValue, newValue) -> {
+            ObservableList<Shipment> filteredList = FXCollections.observableArrayList();
+            if(newValue == null || newValue.isEmpty()){
+                populateTableView();
+                return;
+            }
+
+            for (Shipment shipment : shipments) {
+                if (shipment.getShipmentId() == Integer.parseInt(newValue)){
+                    filteredList.add(shipment);
+                }
+            }
+            tableViewShipments.getItems().clear();
+            tableViewShipments.setItems(filteredList);
+        });
     }
 
     public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
@@ -68,6 +125,7 @@ public class ShipmentViewController {
 
     public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
         this.shipmentRegistry = shipmentRegistry;
+        populateTableView();
     }
 
 }
