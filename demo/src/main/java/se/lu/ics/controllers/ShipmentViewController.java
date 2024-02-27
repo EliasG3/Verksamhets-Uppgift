@@ -12,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import se.lu.ics.models.Inspection;
 import se.lu.ics.models.InspectionRegistry;
 import se.lu.ics.models.Shipment;
 import se.lu.ics.models.ShipmentRegistry;
