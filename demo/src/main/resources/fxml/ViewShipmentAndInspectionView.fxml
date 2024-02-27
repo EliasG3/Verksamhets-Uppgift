@@ -7,14 +7,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="anchorpaneViewShipmentAndInspection" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lu.ics.controllers.ViewShipmentAndInspectionController">
    <children>
       <VBox fx:id="VBoxShipmentInspection" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="anchorpaneShipment">
                <children>
-                  <TableView fx:id="tableviewSpecificShipments" editable="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+                  <TableView fx:id="tableviewSpecificShipments" editable="true" onMouseClicked="#viewInspections" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
                     <columns>
                       <TableColumn fx:id="tablecolumnShipmentID" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="tablecolumnShipmentType" prefWidth="75.0" text="Type" />
@@ -33,7 +32,12 @@
             </AnchorPane>
             <AnchorPane fx:id="anchorpaneInspection">
                <children>
-                  <TableView fx:id="tableviewInspection" editable="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                  <Label text="Inspections" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableviewInspection" editable="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
                      <columns>
                         <TableColumn fx:id="tablecolumnInspectionID" prefWidth="75.0" text="ID" />
                         <TableColumn fx:id="tablecolumnInspectionDate" prefWidth="75.0" text="Date" />

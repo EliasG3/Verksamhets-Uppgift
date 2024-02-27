@@ -19,14 +19,15 @@ import javafx.util.converter.IntegerStringConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import se.lu.ics.models.Warehouse;
+import javafx.scene.input.MouseEvent;
 
 public class ViewShipmentAndInspectionController {
 
     private WarehouseRegistry warehouseRegistry;
     private InspectionRegistry inspectionRegistry;
     private ShipmentRegistry shipmentRegistry;
-    
     private Warehouse selectedWarehouse;
+    private MainViewController mainViewController;
 
     @FXML
     private VBox VBoxShipmentInspection;
@@ -67,9 +68,10 @@ public class ViewShipmentAndInspectionController {
     @FXML
     private TableView<Shipment> tableviewSpecificShipments;
 
+    @FXML
     public void initialize() {
 
-        tablecolumnInspectionDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        tablecolumnInspectionDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         tablecolumnInspectionID.setCellValueFactory(new PropertyValueFactory<>("inspectionId"));
         tablecolumnInspectionResponsible.setCellValueFactory(new PropertyValueFactory<>("responsible"));
         tablecolumnInspectionResult.setCellValueFactory(new PropertyValueFactory<>("result"));
@@ -121,20 +123,38 @@ public class ViewShipmentAndInspectionController {
         });
     }
 
+    private Shipment getSelectedShipment() {
+        Shipment selectedShipment = tableviewSpecificShipments.getSelectionModel().getSelectedItem();
+        return selectedShipment;
+    }
+
     public void populateTableViewShipments() {
-        ObservableList<Shipment> shipments = FXCollections.observableArrayList(shipmentRegistry.getShipmentRegistry());
-        tableviewSpecificShipments.setItems(shipments);
+        tableviewSpecificShipments.setItems(selectedWarehouse.getShipments());
     }
 
     public void populateTableViewInspections() {
-        ObservableList<Inspection> inspections = FXCollections.observableArrayList(inspectionRegistry.getInspectionRegistry());
+        ObservableList<Inspection> inspections = FXCollections.observableArrayList(getSelectedShipment().getInspection());
         tableviewInspection.setItems(inspections);
     }
-
-    //-----------------------------------------------------------------------
-    public void setSelectedWarehouse(Warehouse selectedWarehouse) {
-        this.selectedWarehouse = selectedWarehouse;
+    
+    @FXML
+    void viewInspections(MouseEvent event) {
+        populateTableViewInspections();
     }
+
+    //----------------------------------------------------------------------------
+
+    @FXML
+    public void setMainViewController(MainViewController mainViewController) {
+        this.mainViewController = mainViewController;
+    }
+
+    public void setSelectedWarehouse(Warehouse selectedWarehouse) {
+        this.selectedWarehouse = selectedWarehouse; 
+        populateTableViewShipments();
+    }
+
+
 
     public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
         this.warehouseRegistry = warehouseRegistry;
@@ -142,11 +162,9 @@ public class ViewShipmentAndInspectionController {
 
     public void setInspectionRegistry(InspectionRegistry inspectionRegistry) {
         this.inspectionRegistry = inspectionRegistry;
-        populateTableViewInspections();
     }
 
     public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
-        this.shipmentRegistry = shipmentRegistry;
-        populateTableViewShipments();
+        this.shipmentRegistry = shipmentRegistry;    
     }
 }

@@ -274,6 +274,8 @@ public class MainViewController {
             controller.setShipmentRegistry(shipmentRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setWarehouseRegistry(warehouseRegistry);
+            
+            controller.setMainViewController(this);
             controller.setSelectedWarehouse(getSelectedWarehouse());
             
             scrollpaneRight.setContent(root);

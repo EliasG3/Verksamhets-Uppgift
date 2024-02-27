@@ -1,6 +1,7 @@
 package se.lu.ics.models;
 
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 public class Warehouse {
 
@@ -18,6 +19,7 @@ public class Warehouse {
         this.capacity = capacity;
         this.currentStock = currentStock;
         this.lastInspectionDate = lastInspectionDate;
+        this.shipments = FXCollections.observableArrayList();
     }
 
     public String getName() {
@@ -40,6 +42,10 @@ public class Warehouse {
         return lastInspectionDate;
     }
 
+    public ObservableList<Shipment> getShipments() {
+        return shipments;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -58,6 +64,10 @@ public class Warehouse {
 
     public void setLastInspectionDate(String lastInspectionDate) {
         this.lastInspectionDate = lastInspectionDate;
+    }
+
+    public void addShipment(Shipment shipment) {
+        this.shipments.add(shipment);
     }
 
     //--------------------------------------------------------------------------------

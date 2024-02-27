@@ -64,6 +64,10 @@ public class App extends Application {
         shipment2.addShipmentLog(shipmentLog2);
         shipment3.addShipmentLog(shipmentLog3);
 
+        warehouse1.addShipment(shipment3);
+        warehouse2.addShipment(shipment2);
+        warehouse3.addShipment(shipment1);
+
         this.warehouseRegistry.addWarehouse(warehouse1);
         this.warehouseRegistry.addWarehouse(warehouse2);
         this.warehouseRegistry.addWarehouse(warehouse3);
