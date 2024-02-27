@@ -1,13 +1,16 @@
 package se.lu.ics.models;
 
-
+import javafx.collections.ObservableList;
 
 public class Warehouse {
+
     private String name;
     private String address;
     private int capacity;
     private int currentStock;
     private String lastInspectionDate;
+
+    private ObservableList<Shipment> shipments;
 
     public Warehouse(String name, String address, int capacity, int currentStock, String lastInspectionDate) {
         this.name = name;

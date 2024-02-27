@@ -2,7 +2,7 @@ package se.lu.ics.models;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import java.util.Comparator;
+
 
 public class Shipment {
     private Inspection inspection;
@@ -10,6 +10,7 @@ public class Shipment {
     private int shipmentId;
     private int daysStored;
     private ObservableList<ShipmentLog> shipmentLog;
+
 
     public Shipment(Inspection inspection, String type, int shipmentId, int daysStored) {
         this.inspection = inspection;

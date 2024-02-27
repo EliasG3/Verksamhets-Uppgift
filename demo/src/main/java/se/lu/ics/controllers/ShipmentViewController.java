@@ -135,6 +135,7 @@ public class ShipmentViewController {
         });
     }
 
+    
     private void updateListedLabel() {
         labelListed.setText( tableViewShipments.getItems().size()+" Listed" );
     }

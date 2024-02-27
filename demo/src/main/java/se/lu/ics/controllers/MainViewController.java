@@ -183,6 +183,10 @@ public class MainViewController {
 
     }
 
+    public Warehouse getSelectedWarehouse() {
+        return tableViewWarehouses.getSelectionModel().getSelectedItem();
+    }
+
     public void populateCurrentDateAndTime() {
         LocalDateTime time = LocalDateTime.now();
 
@@ -270,7 +274,8 @@ public class MainViewController {
             controller.setShipmentRegistry(shipmentRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setWarehouseRegistry(warehouseRegistry);
-
+            controller.setSelectedWarehouse(getSelectedWarehouse());
+            
             scrollpaneRight.setContent(root);
 
         } catch (Exception e) {

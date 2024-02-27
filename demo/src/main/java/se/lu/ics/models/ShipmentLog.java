@@ -7,6 +7,7 @@ public class ShipmentLog {
     private Shipment shipment;
 
     public ShipmentLog(String date, Warehouse warehouse, Shipment shipment){
+        
         this.date = date;
         this.warehouse = warehouse;
         this.shipment = shipment;
