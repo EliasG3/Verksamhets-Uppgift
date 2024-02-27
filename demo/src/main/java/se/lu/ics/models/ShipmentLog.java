@@ -2,7 +2,7 @@ package se.lu.ics.models;
 
 public class ShipmentLog {
 
-    private String date;
+    private String date; //Might need a arrival and departure date
     private Warehouse warehouse;
     private Shipment shipment;
 

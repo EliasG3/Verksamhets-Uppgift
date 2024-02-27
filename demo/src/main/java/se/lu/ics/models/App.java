@@ -47,18 +47,37 @@ public class App extends Application {
         Warehouse warehouse1 = new Warehouse("Warehouse 1", "Address 1", 100, 50, "2020-01-01");
         Warehouse warehouse2 = new Warehouse("Warehouse 2", "Address 2", 200, 100, "2020-01-01");
         Warehouse warehouse3 = new Warehouse("Warehouse 3", "Address 3", 300, 150, "2020-01-01");
-
-        this.warehouseRegistry.addWarehouse(warehouse1);
-        this.warehouseRegistry.addWarehouse(warehouse2);
-        this.warehouseRegistry.addWarehouse(warehouse3);
-
+        
         Inspection inspection1 = new Inspection(warehouse1, "2020-01-01", "John Doe", "OK", 1);
         Inspection inspection2 = new Inspection(warehouse2, "2020-01-01", "John Doe", "OK", 2);
         Inspection inspection3 = new Inspection(warehouse3, "2020-01-01", "John Doe", "OK", 3);
 
-        this.shipmentRegistry.addShipment(new Shipment(inspection1, "Recieving", 1, 10));
-        this.shipmentRegistry.addShipment(new Shipment(inspection2, "Recieving", 2, 20));
-        this.shipmentRegistry.addShipment(new Shipment(inspection3, "Recieving", 3, 30));
+        Shipment shipment1 = new Shipment(inspection1, "Recieving", 1, 10);
+        Shipment shipment2 = new Shipment(inspection2, "Recieving", 2, 20);
+        Shipment shipment3 = new Shipment(inspection3, "Recieving", 3, 30);
+
+        ShipmentLog shipmentLog1 = new ShipmentLog("2020-01-01", warehouse1, shipment1);
+        ShipmentLog shipmentLog2 = new ShipmentLog("2020-01-01", warehouse2, shipment2);
+        ShipmentLog shipmentLog3 = new ShipmentLog("2020-01-01", warehouse3, shipment3);
+
+        shipment1.addShipmentLog(shipmentLog1);
+        shipment2.addShipmentLog(shipmentLog2);
+        shipment3.addShipmentLog(shipmentLog3);
+
+        this.warehouseRegistry.addWarehouse(warehouse1);
+        this.warehouseRegistry.addWarehouse(warehouse2);
+        this.warehouseRegistry.addWarehouse(warehouse3);
+        
+
+        this.inspectionRegistry.addInspection(inspection1);
+        this.inspectionRegistry.addInspection(inspection2);
+        this.inspectionRegistry.addInspection(inspection3);
+
+        this.shipmentRegistry.addShipment(shipment1);
+        this.shipmentRegistry.addShipment(shipment2);
+        this.shipmentRegistry.addShipment(shipment3);
+
+
        
     }
 

@@ -3,7 +3,7 @@ package se.lu.ics.models;
 import se.lu.ics.models.Warehouse;
 
 public class Inspection {
-    private Warehouse warehouse; // warehouse is the current warehouse the shipment is stored at the time of inspection
+    private Warehouse warehouse; // warehouse is the current warehouse the shipment is stored at the time of inspection, needed for last inspection date for the warehouse
     private String date;
     private String responsible;
     private String result;

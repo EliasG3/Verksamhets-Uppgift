@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lu.ics.controllers.ShipmentViewController">
@@ -28,6 +29,13 @@
          </columnResizePolicy>
       </TableView>
       <Button fx:id="buttonAddShipment" layoutX="534.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleButtonAddShipmentAction" text="Add" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
-      <Button fx:id="buttonDeleteShipment" layoutX="552.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleButtonDeleteShipmentAction" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label fx:id="labelListed" layoutX="14.0" layoutY="479.0" text="Label" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" />
+      <HBox layoutX="77.0" layoutY="474.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <Button mnemonicParsing="false" text="View inspection history " />
+            <Button mnemonicParsing="false" text="Book inspection" />
+            <Button fx:id="buttonDeleteShipment" mnemonicParsing="false" onAction="#handleButtonDeleteShipmentAction" text="Delete" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

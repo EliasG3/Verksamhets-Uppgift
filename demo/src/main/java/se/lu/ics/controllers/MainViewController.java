@@ -53,6 +53,9 @@ public class MainViewController {
     private ScrollPane scrollPaneCenter;
 
     @FXML
+    private ScrollPane scrollpaneRight;
+
+    @FXML
     private AnchorPane anchorpaneCenter;
 
     @FXML
@@ -60,6 +63,9 @@ public class MainViewController {
 
     @FXML
     private AnchorPane anchorpaneWarehouses;
+
+    @FXML
+    private AnchorPane anchorpaneViewShipmentAndInspection;
 
     @FXML
     private Button buttonClose;
@@ -80,7 +86,13 @@ public class MainViewController {
     private Button buttonWarehouses;
 
     @FXML
+    private Button buttonViewShipments;
+
+    @FXML
     private Label labelClock;
+
+    @FXML
+    private Label labelListed;
 
     @FXML
     private TableColumn<Warehouse, String> tableColumnWarehouseAddress;
@@ -94,7 +106,6 @@ public class MainViewController {
     @FXML
     private TableColumn<Warehouse, String> tableColumnWarehouseLastInsDate;
     
-
     @FXML
     private TableColumn<Warehouse, String> tableColumnWarehouseName;
 
@@ -113,10 +124,13 @@ public class MainViewController {
     @FXML
     private VBox largeVBox;
 
+    // ---------------------------------------------------------------------------------------
+
     public void initialize() {
 
         populateCurrentDateAndTime();
-
+        updateListedLabel();
+        
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -200,6 +214,7 @@ public class MainViewController {
             e.printStackTrace();
         }
         populateTableView();
+        updateListedLabel();
     }
 
     @FXML
@@ -210,6 +225,7 @@ public class MainViewController {
             warehouseRegistry.removeWarehouse(warehouse);
             tableViewWarehouses.getItems().remove(warehouse);
             populateTableView();
+            updateListedLabel();
         }
     }
 
@@ -222,6 +238,7 @@ public class MainViewController {
 
             if (newValue.isEmpty()) {
                 populateTableView();
+                updateListedLabel();
                 return;
             }
 
@@ -232,12 +249,34 @@ public class MainViewController {
             }
             tableViewWarehouses.getItems().clear();
             tableViewWarehouses.setItems(filteredWarehouses);
+            updateListedLabel();
         });
     }
 
     @FXML
     void handleButtonCloseAction(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    void handlebuttonViewShipmentsAction(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ViewShipmentAndInspectionView.fxml"));
+            Parent root = loader.load();
+            ViewShipmentAndInspectionController controller = loader.getController();
+
+            root.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+            controller.setShipmentRegistry(shipmentRegistry);
+            controller.setInspectionRegistry(inspectionRegistry);
+            controller.setWarehouseRegistry(warehouseRegistry);
+
+            scrollpaneRight.setContent(root);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     // ---------------------------------------------------------------------------------------
@@ -294,9 +333,14 @@ public class MainViewController {
         tableViewWarehouses.setItems(warehouses);
     }
 
+    private void updateListedLabel() {
+        labelListed.setText( tableViewWarehouses.getItems().size() +" Listed" );
+    }
+
     public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
         this.warehouseRegistry = warehouseRegistry;
         populateTableView();
+        updateListedLabel();
     }
 
     public void setInspectionRegistry(InspectionRegistry inspectionRegistry) {

@@ -1,22 +1,22 @@
 package se.lu.ics.models;
 
-import se.lu.ics.models.Warehouse;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import se.lu.ics.models.Inspection;
+import javafx.collections.FXCollections;
+import java.util.Comparator;
 
 public class Shipment {
     private Inspection inspection;
     private String type;
-    private int shipmentId; 
+    private int shipmentId;
     private int daysStored;
     private ObservableList<ShipmentLog> shipmentLog;
 
-    public Shipment( Inspection inspection, String type, int shipmentId, int daysStored) {
+    public Shipment(Inspection inspection, String type, int shipmentId, int daysStored) {
         this.inspection = inspection;
         this.type = type;
         this.shipmentId = shipmentId;
         this.daysStored = daysStored;
+        this.shipmentLog = FXCollections.observableArrayList(); // Initialize the list here
     }
   
     public Inspection getInspection() {
@@ -57,8 +57,11 @@ public class Shipment {
     }
 
     public void addShipmentLog(ShipmentLog shipmentLog){
-        this.shipmentLog.add(shipmentLog);
+        if (this.shipmentLog != null) {
+            this.shipmentLog.add(shipmentLog);
+        }
     }
 
+   
 
 }

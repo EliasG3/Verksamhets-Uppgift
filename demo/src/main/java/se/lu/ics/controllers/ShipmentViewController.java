@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,21 +30,25 @@ public class ShipmentViewController {
 
     @FXML
     private Button buttonAddShipment;
+    
 
     @FXML
     private Button buttonDeleteShipment;
 
     @FXML
-    private TableColumn<Shipment, Integer> tableColumnShipmentDSACL;
+    private Label labelListed;
+
+    @FXML
+    private TableColumn<Shipment, Integer> tableColumnShipmentDSACL; // Days Stored At Current Location
 
     @FXML
     private TableColumn<Shipment, Integer> tableColumnShipmentID;
 
     @FXML
-    private TableColumn<Shipment, String> tableColumnShipmentType;
+    private TableColumn<Shipment, String> tableColumnShipmentType; // Recieving or outgoing
 
     @FXML
-    private TableColumn<Shipment, String> tableColumnShipmentWarehouse;
+    private TableColumn<Shipment, String> tableColumnShipmentWarehouse; // Current warehouse/location
 
     @FXML
     private TableView<Shipment> tableViewShipments;
@@ -53,9 +58,16 @@ public class ShipmentViewController {
 
     public void initialize() {
 
+        updateListedLabel();
+
         tableColumnShipmentID.setCellValueFactory(new PropertyValueFactory<>("shipmentId"));
         tableColumnShipmentType.setCellValueFactory(new PropertyValueFactory<>("type"));
         tableColumnShipmentDSACL.setCellValueFactory(new PropertyValueFactory<>("daysStored"));
+
+        tableColumnShipmentWarehouse.setCellValueFactory(cellData -> {
+            Shipment shipment = cellData.getValue();
+            return new SimpleStringProperty(shipmentRegistry.getCurrentLocation(shipment).getName());
+        });
 
         tableColumnShipmentID.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         tableColumnShipmentType.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -97,6 +109,7 @@ public class ShipmentViewController {
             shipmentRegistry.removeShipment(shipment);
             tableViewShipments.getItems().remove(shipment);
             populateTableView();
+            updateListedLabel();
         }
     }
 
@@ -108,6 +121,7 @@ public class ShipmentViewController {
             ObservableList<Shipment> filteredList = FXCollections.observableArrayList();
             if(newValue == null || newValue.isEmpty()){
                 populateTableView();
+                updateListedLabel();
                 return;
             }
 
@@ -118,7 +132,12 @@ public class ShipmentViewController {
             }
             tableViewShipments.getItems().clear();
             tableViewShipments.setItems(filteredList);
+            updateListedLabel();
         });
+    }
+
+    private void updateListedLabel() {
+        labelListed.setText( tableViewShipments.getItems().size()+" Listed" );
     }
 
     public void setWarehouseRegistry(WarehouseRegistry warehouseRegistry) {
@@ -132,6 +151,7 @@ public class ShipmentViewController {
     public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
         this.shipmentRegistry = shipmentRegistry;
         populateTableView();
+        updateListedLabel();
     }
 
 }
