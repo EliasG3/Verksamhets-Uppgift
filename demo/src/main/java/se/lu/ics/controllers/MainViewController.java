@@ -183,6 +183,7 @@ public class MainViewController {
 
     }
 
+    
     public Warehouse getSelectedWarehouse() {
         return tableViewWarehouses.getSelectionModel().getSelectedItem();
     }
