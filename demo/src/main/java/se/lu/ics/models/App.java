@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import se.lu.ics.controllers.MainViewController;
 
 public class App extends Application {
+    
     private InspectionRegistry inspectionRegistry;
     private ShipmentRegistry shipmentRegistry;
     private WarehouseRegistry warehouseRegistry;
