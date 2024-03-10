@@ -6,14 +6,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import se.lu.ics.models.InspectionRegistry;
 import se.lu.ics.models.Shipment;
+import se.lu.ics.models.ShipmentLog;
+import se.lu.ics.models.ShipmentLogRegistry;
 import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.WarehouseRegistry;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,10 +32,13 @@ public class ShipmentViewController {
     private WarehouseRegistry warehouseRegistry;
     private InspectionRegistry inspectionRegistry;
     private ShipmentRegistry shipmentRegistry;
+    private ShipmentLogRegistry shipmentLogRegistry;
 
     @FXML
     private Button buttonAddShipment;
-    
+
+    @FXML
+    private Button buttonBookInspection;
 
     @FXML
     private Button buttonDeleteShipment;
@@ -62,15 +71,13 @@ public class ShipmentViewController {
         tableColumnShipmentID.setCellValueFactory(new PropertyValueFactory<>("shipmentId"));
         tableColumnShipmentType.setCellValueFactory(new PropertyValueFactory<>("type"));
         tableColumnShipmentDSACL.setCellValueFactory(new PropertyValueFactory<>("daysStored"));
-
-        tableColumnShipmentWarehouse.setCellValueFactory(cellData -> {
-            Shipment shipment = cellData.getValue();
-            return new SimpleStringProperty(shipmentRegistry.getCurrentLocation(shipment).getName());
-        });
-
         tableColumnShipmentID.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         tableColumnShipmentType.setCellFactory(TextFieldTableCell.forTableColumn());
         tableColumnShipmentDSACL.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        tableColumnShipmentWarehouse.setCellValueFactory(cellData -> new SimpleStringProperty(
+            String.valueOf(shipmentLogRegistry.getLastLocation(cellData.getValue()))));
+
 
        
 
@@ -85,8 +92,13 @@ public class ShipmentViewController {
         });
 
         tableColumnShipmentDSACL.setOnEditCommit(event -> {
-            Shipment shipment = event.getRowValue();
-            shipment.setDaysStored(event.getNewValue());
+           Shipment shipment = event.getRowValue();
+            for(ShipmentLog shipmentLog : shipmentLogRegistry.getShipmentLogRegistry()){
+                if(shipmentLog.getShipment().equals(shipment)){
+                    shipmentLog.setDaysStored(event.getNewValue());
+                    shipment.setDaysStored(event.getNewValue());
+                }
+            }
         });
 
     }
@@ -135,6 +147,31 @@ public class ShipmentViewController {
         });
     }
 
+    @FXML
+    void handlebuttonBookInspectionAction(ActionEvent event) {
+
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AddInspectionView.fxml"));
+            Stage modalstage = new Stage();
+            modalstage.setScene(new Scene(loader.load()));
+
+            modalstage.getScene().getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+            AddInspectionViewController controller = loader.getController();
+            controller.setWarehouseRegistry(warehouseRegistry);
+            controller.setInspectionRegistry(inspectionRegistry);
+            controller.setShipmentRegistry(shipmentRegistry);
+            controller.setShipmentLogRegistry(shipmentLogRegistry);
+
+            modalstage.setTitle("Book Inspection");
+            modalstage.initModality(Modality.APPLICATION_MODAL);
+            modalstage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     
     private void updateListedLabel() {
         labelListed.setText( tableViewShipments.getItems().size()+" Listed" );
@@ -152,6 +189,10 @@ public class ShipmentViewController {
         this.shipmentRegistry = shipmentRegistry;
         populateTableView();
         updateListedLabel();
+    }
+
+    public void setShipmentLogRegistry(ShipmentLogRegistry shipmentLogRegistry) {
+        this.shipmentLogRegistry = shipmentLogRegistry;
     }
 
 }

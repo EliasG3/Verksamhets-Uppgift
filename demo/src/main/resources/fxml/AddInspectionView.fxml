@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="180.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.lu.ics.controllers.AddInspectionViewController">
+   <children>
+      <VBox layoutX="49.0" layoutY="46.0" spacing="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Label layoutX="10.0" layoutY="10.0" text="Shipment" />
+            <Label layoutX="10.0" layoutY="10.0" text="Date" />
+            <Label layoutX="10.0" layoutY="27.0" prefHeight="17.0" prefWidth="153.0" text="Responsible inspector" />
+            <Label layoutX="10.0" layoutY="44.0" text="Result" />
+         </children>
+      </VBox>
+      <VBox layoutX="264.0" layoutY="44.0" spacing="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <ChoiceBox fx:id="choiceboxInspectionShipment" prefWidth="150.0" />
+            <DatePicker fx:id="datepickerInspection" />
+            <TextField fx:id="textfieldInspectionResponsible" />
+            <TextField fx:id="textfieldInspectionResult" layoutX="10.0" layoutY="60.0" />
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="221.0" layoutY="198.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <HBox spacing="5.0">
+               <children>
+                  <Button fx:id="butonClose" mnemonicParsing="false" onAction="#handleButtonCloseAction" text="Close" />
+                  <Button fx:id="buttonConfirm" mnemonicParsing="false" onAction="#handleButtonConfirmAction" text="Confirm" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

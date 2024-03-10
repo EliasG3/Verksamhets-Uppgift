@@ -7,12 +7,14 @@ import java.util.Set;
 import se.lu.ics.models.InspectionRegistry;
 import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.WarehouseRegistry;
+import se.lu.ics.models.ShipmentLogRegistry;
 
 public class AddShipmentViewController {
 
     private ShipmentRegistry shipmentRegistry;
     private WarehouseRegistry warehouseRegistry;
     private InspectionRegistry inspectionRegistry;
+    private ShipmentLogRegistry shipmentLogRegistry;
 
     private String generateRandomUniqueNumber() {
         Set<String> generatedNumbers = new HashSet<>();
@@ -44,6 +46,10 @@ public class AddShipmentViewController {
 
     public void setInspectionRegistry(WarehouseRegistry warehouseRegistry) {
         this.warehouseRegistry = warehouseRegistry;
+    }
+
+    public void setShipmentLogRegistry(ShipmentLogRegistry shipmentLogRegistry) {
+        this.shipmentLogRegistry = shipmentLogRegistry;
     }
 
 }

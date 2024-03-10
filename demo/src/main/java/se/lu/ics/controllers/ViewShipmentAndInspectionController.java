@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import se.lu.ics.models.Inspection;
 import se.lu.ics.models.InspectionRegistry;
 import se.lu.ics.models.Shipment;
+import se.lu.ics.models.ShipmentLogRegistry;
 import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.WarehouseRegistry;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -20,6 +21,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import se.lu.ics.models.Warehouse;
 import javafx.scene.input.MouseEvent;
+import se.lu.ics.models.WarehouseRegistry;
+import se.lu.ics.models.ShipmentLog;
 
 public class ViewShipmentAndInspectionController {
 
@@ -28,7 +31,8 @@ public class ViewShipmentAndInspectionController {
     private ShipmentRegistry shipmentRegistry;
     private Warehouse selectedWarehouse;
     private MainViewController mainViewController;
-
+    private ShipmentLogRegistry shipmentLogRegistry;
+    
     @FXML
     private VBox VBoxShipmentInspection;
 
@@ -109,7 +113,12 @@ public class ViewShipmentAndInspectionController {
 
         tablecolumnShipmentDSACL.setOnEditCommit(event -> {
             Shipment shipment = event.getRowValue();
-            shipment.setDaysStored(event.getNewValue());
+            for(ShipmentLog shipmentLog : shipmentLogRegistry.getShipmentLogRegistry()){
+                if(shipmentLog.getShipment().equals(shipment)){
+                    shipmentLog.setDaysStored(event.getNewValue());
+                    shipment.setDaysStored(event.getNewValue());
+                }
+            }
         });
 
         tablecolumnShipmentID.setOnEditCommit(event -> {
@@ -133,8 +142,17 @@ public class ViewShipmentAndInspectionController {
     }
 
     public void populateTableViewInspections() {
-        ObservableList<Inspection> inspections = FXCollections.observableArrayList(getSelectedShipment().getInspection());
-        tableviewInspection.setItems(inspections);
+        tableviewInspection.setItems(getInspections());
+    }
+
+    public ObservableList<Inspection> getInspections() {
+        ObservableList<Inspection> inspections = FXCollections.observableArrayList();
+        for(Inspection inspection : inspectionRegistry.getInspectionRegistry()){
+            if(inspection.getShipment().equals(getSelectedShipment())){
+                inspections.add(inspection);
+            }
+        }
+        return inspections;
     }
     
     @FXML
@@ -166,5 +184,9 @@ public class ViewShipmentAndInspectionController {
 
     public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
         this.shipmentRegistry = shipmentRegistry;    
+    }
+
+    public void setShipmentLogRegistry(ShipmentLogRegistry shipmentLogRegistry) {
+        this.shipmentLogRegistry = shipmentLogRegistry;
     }
 }

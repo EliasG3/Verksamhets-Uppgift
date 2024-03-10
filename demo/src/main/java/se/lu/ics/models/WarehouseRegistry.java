@@ -23,9 +23,9 @@ public class WarehouseRegistry {
         this.warehouseRegistry.remove(warehouse);
     }
 
-    public Warehouse getWarehouse(String warehouseName){
+    public Warehouse getWarehouse(Warehouse warehouseName){
         for(Warehouse warehouse : this.warehouseRegistry){
-            if(warehouse.getName().equals(warehouseName)){
+            if(warehouse.equals(warehouseName)){
                 return warehouse;
             }
         }

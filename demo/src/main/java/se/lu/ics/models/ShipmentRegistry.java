@@ -32,10 +32,4 @@ public class ShipmentRegistry {
     }
 
 
-    // method that gets the current location using shipmentlog
-    public Warehouse getCurrentLocation(Shipment shipment){
-        ObservableList<ShipmentLog> shipmentLog = shipment.getShipmentLog();
-        return shipmentLog.get(shipmentLog.size()-1).getWarehouse();
-    }
-
 }

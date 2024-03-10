@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import se.lu.ics.models.InspectionRegistry;
 import se.lu.ics.models.Shipment;
+import se.lu.ics.models.ShipmentLogRegistry;
 import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.Warehouse;
 import se.lu.ics.models.WarehouseRegistry;
@@ -17,6 +18,7 @@ public class AddWarehouseViewController {
     private WarehouseRegistry warehouseRegistry;
     private InspectionRegistry inspectionRegistry;
     private ShipmentRegistry shipmentRegistry;
+    private ShipmentLogRegistry shipmentLogRegistry;
 
     @FXML
     private Button buttonAddWarehouse;
@@ -72,6 +74,10 @@ public class AddWarehouseViewController {
 
     public void setInspectionRegistry(InspectionRegistry inspectionRegistry) {
         this.inspectionRegistry = inspectionRegistry;
+    }
+
+    public void setShipmentLogRegistry(ShipmentLogRegistry shipmentLogRegistry) {
+        this.shipmentLogRegistry = shipmentLogRegistry;
     }
     
 }

@@ -5,25 +5,21 @@ import javafx.collections.FXCollections;
 
 
 public class Shipment {
-    private Inspection inspection;
+    
     private String type;
     private int shipmentId;
+    private int quantity;
     private int daysStored;
-    private ObservableList<ShipmentLog> shipmentLog;
 
-
-    public Shipment(Inspection inspection, String type, int shipmentId, int daysStored) {
-        this.inspection = inspection;
+    public Shipment( String type, int shipmentId, int quantity, int daysStored) {
+       
         this.type = type;
         this.shipmentId = shipmentId;
+        this.quantity = quantity;
         this.daysStored = daysStored;
-        this.shipmentLog = FXCollections.observableArrayList(); // Initialize the list here
     }
   
-    public Inspection getInspection() {
-        return inspection;
-    }
-
+    
     public String getType() {
         return type;
     }
@@ -32,22 +28,14 @@ public class Shipment {
         return shipmentId;
     }
 
-    public int getDaysStored(){
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getDaysStored() {
         return daysStored;
     }
 
-    public ObservableList<ShipmentLog> getShipmentLog() {
-        return shipmentLog;
-    }
-
-    public void setDaysStored(int daysStored){
-        this.daysStored = daysStored;
-    }
-
-
-    public void setInspection(Inspection inspection) {
-        this.inspection = inspection;
-    }
 
     public void setType(String type) {
         this.type = type;
@@ -57,12 +45,17 @@ public class Shipment {
         this.shipmentId = shipmentId;
     }
 
-    public void addShipmentLog(ShipmentLog shipmentLog){
-        if (this.shipmentLog != null) {
-            this.shipmentLog.add(shipmentLog);
-        }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-   
+    public void setDaysStored(int daysStored) {
+        this.daysStored = daysStored;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.shipmentId);
+    }
 
 }

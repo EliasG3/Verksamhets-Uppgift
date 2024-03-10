@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import se.lu.ics.models.InspectionRegistry;
+import se.lu.ics.models.ShipmentLogRegistry;
 import se.lu.ics.models.ShipmentRegistry;
 import se.lu.ics.models.Warehouse;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,6 +46,7 @@ public class MainViewController {
     private WarehouseRegistry warehouseRegistry;
     private InspectionRegistry inspectionRegistry;
     private ShipmentRegistry shipmentRegistry;
+    private ShipmentLogRegistry shipmentLogRegistry;
 
     @FXML
     private AnchorPane anchorpaneLeftSide;
@@ -124,7 +126,7 @@ public class MainViewController {
     @FXML
     private VBox largeVBox;
 
-    
+
     // ---------------------------------------------------------------------------------------
 
     public void initialize() {
@@ -212,6 +214,7 @@ public class MainViewController {
             controller.setWarehouseRegistry(warehouseRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setShipmentRegistry(shipmentRegistry);
+            controller.setShipmentLogRegistry(shipmentLogRegistry);
 
             modalstage.initModality(Modality.APPLICATION_MODAL);
             modalstage.showAndWait();
@@ -276,7 +279,8 @@ public class MainViewController {
             controller.setShipmentRegistry(shipmentRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setWarehouseRegistry(warehouseRegistry);
-            
+            controller.setShipmentLogRegistry(shipmentLogRegistry);
+
             controller.setMainViewController(this);
             controller.setSelectedWarehouse(getSelectedWarehouse());
             
@@ -306,6 +310,7 @@ public class MainViewController {
             controller.setShipmentRegistry(shipmentRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setWarehouseRegistry(warehouseRegistry);
+            controller.setShipmentLogRegistry(shipmentLogRegistry);
 
             scrollPaneCenter.setContent(root);
 
@@ -327,7 +332,8 @@ public class MainViewController {
             controller.setWarehouseRegistry(warehouseRegistry);
             controller.setInspectionRegistry(inspectionRegistry);
             controller.setShipmentRegistry(shipmentRegistry);
-
+            controller.setShipmentLogRegistry(shipmentLogRegistry);
+            
             scrollPaneCenter.setContent(anchorpaneWarehouses);
 
         } catch (Exception e) {
@@ -358,6 +364,10 @@ public class MainViewController {
 
     public void setShipmentRegistry(ShipmentRegistry shipmentRegistry) {
         this.shipmentRegistry = shipmentRegistry;
+    }
+
+    public void setShipmentLogRegistry(ShipmentLogRegistry shipmentLogRegistry) {
+        this.shipmentLogRegistry = shipmentLogRegistry;
     }
 
 }

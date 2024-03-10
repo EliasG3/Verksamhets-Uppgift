@@ -33,7 +33,7 @@
       <HBox layoutX="77.0" layoutY="474.0" spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <children>
             <Button mnemonicParsing="false" text="View inspection history " />
-            <Button mnemonicParsing="false" text="Book inspection" />
+            <Button fx:id="buttonBookInspection" mnemonicParsing="false" onAction="#handlebuttonBookInspectionAction" text="Book inspection" />
             <Button fx:id="buttonDeleteShipment" mnemonicParsing="false" onAction="#handleButtonDeleteShipmentAction" text="Delete" />
          </children>
       </HBox>
