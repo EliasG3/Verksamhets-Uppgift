@@ -48,9 +48,9 @@ public class App extends Application {
 
     public void addTestData() {
 
-        Warehouse warehouse1 = new Warehouse("Warehouse 1", "Address 1", 100, 50, "2020-01-01");
-        Warehouse warehouse2 = new Warehouse("Warehouse 2", "Address 2", 200, 100, "2020-01-01");
-        Warehouse warehouse3 = new Warehouse("Warehouse 3", "Address 3", 300, 150, "2020-01-01");
+        Warehouse warehouse1 = new Warehouse("Warehouse 1", "North", 100, 50, "2020-01-01");
+        Warehouse warehouse2 = new Warehouse("Warehouse 2", "South", 200, 100, "2020-01-01");
+        Warehouse warehouse3 = new Warehouse("Warehouse 3", "Middle", 300, 150, "2020-01-01");
 
         Shipment shipment1 = new Shipment( "Recieving", 1, 10,9);
         Shipment shipment2 = new Shipment( "Recieving", 2, 20,5);

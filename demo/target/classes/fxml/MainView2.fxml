@@ -77,7 +77,7 @@
                   </VBox>
                </children>
         </AnchorPane>
-            <ScrollPane fx:id="scrollPaneCenter" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER">
+            <ScrollPane fx:id="scrollPaneCenter" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER">
                <content>
             <AnchorPane id="Content" fx:id="anchorpaneWarehouses" minHeight="-1.0" minWidth="-1.0" prefWidth="899.0">
                      <children>

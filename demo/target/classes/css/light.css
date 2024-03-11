@@ -21,6 +21,16 @@
 }
 
 
+#anchorpanePieChartMiddleCapacity,#anchorpanePieChartNorthCapacity,
+#anchorpanePieChartSouthCapacity,#anchorpanePieChartTotalCapacity,#anchorpaneBarChart{
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #d0d0d0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+
+
 
 .button {
     -fx-background-color: transparent;

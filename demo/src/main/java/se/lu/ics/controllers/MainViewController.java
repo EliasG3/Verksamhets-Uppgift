@@ -179,10 +179,25 @@ public class MainViewController {
             warehouse.setLastInspectionDate(event.getNewValue());
         });
 
+
+
+
+
+        
+        tableColumnWarehouseName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        tableColumnWarehouseName.setCellFactory(TextFieldTableCell.forTableColumn());
+
         tableColumnWarehouseName.setOnEditCommit(event -> {
             Warehouse warehouse = event.getRowValue();
             warehouse.setName(event.getNewValue());
         });
+
+
+
+
+
+
 
     }
 
@@ -296,6 +311,23 @@ public class MainViewController {
 
     @FXML
     void handleButtonOverviewAction(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Overview.fxml"));
+            Parent root = loader.load();
+            OverviewController controller = loader.getController();
+
+            root.getStylesheets().add(getClass().getResource("/css/light.css").toExternalForm());
+            controller.setShipmentRegistry(shipmentRegistry);
+            controller.setInspectionRegistry(inspectionRegistry);
+            controller.setWarehouseRegistry(warehouseRegistry);
+            controller.setShipmentLogRegistry(shipmentLogRegistry);
+
+            scrollPaneCenter.setContent(root);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
