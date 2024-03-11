@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -14,42 +14,35 @@
    <children>
       <VBox layoutX="10.0" layoutY="40.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
          <children>
-            <AnchorPane fx:id="anchorpaneBarChart" minHeight="-Infinity" prefHeight="600.0">
+            <AnchorPane fx:id="anchorpaneBarChart" minHeight="-Infinity" prefHeight="500.0">
                <children>
-                  <BarChart fx:id="barchartCurrentStock" title="Warehouse Current Stock" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <StackedBarChart fx:id="stackedBarChartWarehouseStock" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                     <xAxis>
-                      <CategoryAxis fx:id="yyAxis" side="BOTTOM" />
+                      <CategoryAxis side="BOTTOM" fx:id="xxAxis" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" fx:id="xxAxis" />
+                      <NumberAxis fx:id="yyAxis" side="LEFT" />
                     </yAxis>
-                  </BarChart>
+                  </StackedBarChart>
                </children>
             </AnchorPane>
-            <HBox alignment="CENTER" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <AnchorPane fx:id="anchorpanePieChartTotalCapacity">
                      <children>
                         <PieChart fx:id="pieChartTotalCapacity" labelsVisible="false" minHeight="-Infinity" prefHeight="300.0" title="Total Capacity" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="anchorpanePieChartNorthCapacity" layoutX="10.0" layoutY="10.0">
+                  <AnchorPane fx:id="anchorpaneStackedBarChartRegion">
                      <children>
-                        <PieChart fx:id="pieChartNorthCapacity" labelsVisible="false" minHeight="-Infinity" prefHeight="300.0" title="North" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" spacing="10.0">
-               <children>
-                  <AnchorPane fx:id="anchorpanePieChartSouthCapacity">
-                     <children>
-                        <PieChart fx:id="pieChartSouthCapacity" labelsVisible="false" minHeight="-Infinity" prefHeight="300.0" title="South" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="anchorpanePieChartMiddleCapacity" layoutX="10.0" layoutY="10.0">
-                     <children>
-                        <PieChart fx:id="pieChartMiddleCapacity" labelsVisible="false" minHeight="-Infinity" prefHeight="300.0" title="Middle" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <StackedBarChart fx:id="stackedBarChartRegionStock" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="yAxis" side="LEFT" />
+                           </yAxis>
+                        </StackedBarChart>
                      </children>
                   </AnchorPane>
                </children>
